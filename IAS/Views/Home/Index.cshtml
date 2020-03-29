@@ -1,0 +1,312 @@
+﻿@using IAS.Models
+@model PersonalViewModel
+
+@{
+    ViewBag.Title = "Identification";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">@ViewBag.Title</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                @*<ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>*@
+                <div id="disply"></div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        Identity Card
+                    </div><!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="d-md-flex">
+                            <div class="card-pane-left pt-2 pb-2 pl-4 pr-4 flex-fill">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label>ประเภทเอกสารแสดงตน: </label>
+                                            <label>บัตรประจำตัวประชาชน</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="form-group">
+                                            <label>เลขบัตรประชาชน: </label>
+                                            @Html.DisplayFor(m => Model.IdNo)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>ชื่อ: </label>
+                                            @Html.DisplayFor(m => Model.NameTh)
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>นามสกุล: </label>
+                                            @Html.DisplayFor(m => Model.SurenameTh)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Name: </label>
+                                            @Html.DisplayFor(m => Model.NameEn)
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Surename: </label>
+                                            @Html.DisplayFor(m => Model.SurenameEn)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Date of Birth: </label>
+                                            @Html.DisplayFor(m => Model.DateOfBirth)
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="form-group">
+                                            <label>Laser Number: </label>
+                                            @Html.DisplayFor(m => Model.LaserNo)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-pane-right pt-2 pb-2 pl-4 pr-4">
+                                <div class="row">
+                                    <img src="~/Content/Images/male.png" height="240" width="220" />
+                                </div>
+                                <div class="row">
+                                    <button class="form-control">Verify</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- ./card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Face Biometric</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="maximize"><i class="fas fa-expand"></i></button>
+                        </div>
+                    </div><!-- /.card-header -->
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="card card-widget widget-user">
+                                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                                    <div class="widget-user-header">
+                                        <h3 class="widget-user-username">Liveness Detection</h3>
+                                    </div>
+                                    <div class="widget-user-image">
+                                        <img class="img-circle elevation-2" src="~/Content/Images/male.png" alt="User Avatar">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="card card-widget widget-user">
+                                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                                    <div class="widget-user-header">
+                                        <h3 class="widget-user-username">Capture Image</h3>
+                                    </div>
+                                    <div class="widget-user-image">
+                                        <img class="img-circle elevation-2" src="~/Content/Images/male.png" alt="User Avatar">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="card-footer">
+                                    <div class="row">
+                                        <div class="col-sm-4 border-right">
+                                            <div class="description-block">
+                                                <span class="description-text">Score</span>
+                                                <h5 class="description-header">98.9%</h5>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-4 border-right">
+                                            <div class="description-block">
+                                                <button type="button" class="form-control" data-card-widget="maximize">Capture</button>
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                        <div class="col-sm-4">
+                                            <div class="description-block">
+                                                <span class="description-text">Result</span>
+                                                <h5 class="description-header">Pass</h5>
+
+                                            </div>
+                                            <!-- /.description-block -->
+                                        </div>
+                                        <!-- /.col -->
+                                    </div>
+                                    <!-- /.row -->
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- /.card-body -->
+                </div>
+                <!-- ./card -->
+            </div>
+            <!-- /.col -->
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">CIF information</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="d-md-flex">
+                            <div class="p-1 flex-fill" style="overflow: hidden">
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Status</h5>
+                                </div>
+                                <!-- /.description-block -->
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Result</h5>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
+
+                            </div><!-- /.card-pane-right -->
+                        </div><!-- /.d-md-flex -->
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">AML Actimize</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="d-md-flex">
+                            <div class="p-1 flex-fill" style="overflow: hidden">
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Status</h5>
+                                </div>
+                                <!-- /.description-block -->
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Result</h5>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
+
+                            </div><!-- /.card-pane-right -->
+                        </div><!-- /.d-md-flex -->
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">FATCA Flag</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="d-md-flex">
+                            <div class="p-1 flex-fill" style="overflow: hidden">
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Status</h5>
+                                </div>
+                                <!-- /.description-block -->
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Result</h5>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
+
+                            </div><!-- /.card-pane-right -->
+                        </div><!-- /.d-md-flex -->
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Disclosure</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body p-0">
+                        <div class="d-md-flex">
+                            <div class="p-1 flex-fill" style="overflow: hidden">
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Status</h5>
+                                </div>
+                                <!-- /.description-block -->
+                                <div class="description-block mb-4">
+                                    <h5 class="description-header">Result</h5>
+                                </div>
+                                <!-- /.description-block -->
+                            </div>
+                            <div class="card-pane-right bg-success pt-2 pb-2 pl-4 pr-4">
+
+                            </div><!-- /.card-pane-right -->
+                        </div><!-- /.d-md-flex -->
+                    </div>
+                    <!-- /.card-body -->
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
