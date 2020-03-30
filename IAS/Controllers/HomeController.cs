@@ -15,7 +15,7 @@ namespace IAS.Controllers
     {
         public ActionResult Index()
         {
-            string uri = "https://localhost:44355/api/componant";
+            string uri = "http://w2wasdho126/eformv2/api/componant";
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(uri);
             request.Method = "GET";
 
