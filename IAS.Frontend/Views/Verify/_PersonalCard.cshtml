@@ -1,0 +1,69 @@
+﻿<div class="card card-outline card-success">
+    <div class="card-header">
+        ID Card Status: <span id="cardStatusCode" class="text-sm"></span>&nbsp;<span id="cardStatusDesc" class="text-sm"></span>
+    </div><!-- /.card-header -->
+    <div class="card-body bg-gradient-light">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card widget-user">
+                            <form id="cardpid" class="form-horizontal">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <label for="pid" class="col-sm-4 col-form-label text-sm-right">Personal Id: </label>
+                                        <div class="col-sm-8 col-form-label text-sm-left">
+                                            <span id="IdNo"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="pid" class="col-sm-4 col-form-label text-sm-right">Thai Name: </label>
+                                        <div class="col-sm-8 col-form-label text-sm-left">
+                                            <span id="PrefixNameTh"></span>&nbsp;<span id="NameTh"></span>&nbsp;<span id="MiddlenameTh"></span>&nbsp;<span id="SurenameTh"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="pid" class="col-sm-4 col-form-label text-sm-right">Eng Name: </label>
+                                        <div class="col-sm-8 col-form-label text-sm-left">
+                                            <span id="PrefixNameEn"></span>&nbsp;<span id="NameEn"></span>&nbsp;<span id="MiddlenameEn"></span>&nbsp;<span id="SurenameEn"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="pid" class="col-sm-4 col-form-label text-sm-right">Date of Birth: </label>
+                                        <div class="col-sm-8 col-form-label text-sm-left">
+                                            <span id="DateOfBirth"></span>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <label for="pid" class="col-sm-4 col-form-label text-sm-right">Address: </label>
+                                        <div class="col-sm-8 col-form-label text-sm-left">
+                                            <span id="Address"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card card-widget widget-user elevation-0">
+                    <div class="widget-user-header bg-gradient-light">
+                        <img id="imgoncard" class="img-rounded elevation-2"
+                             src="~/dist/img/male.png"
+                             height="160" />
+                    </div>
+                    <div class="widget-user-image">
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="row">
+                            <button id="verifypid" class="btn btn-block bg-gradient-info btn-sm elevation-2" type="button">Read card data</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.card-body -->
+</div>
+<!-- ./card -->

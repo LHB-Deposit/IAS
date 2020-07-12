@@ -1,0 +1,191 @@
+﻿@using IAS.Frontend.Models
+@model PersonalViewModel
+@{
+    ViewBag.Title = "Verification";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    <script type="text/javascript">
+        var accessToken = '';
+        var txKey = '';
+        var imageCard = '';
+        var smartCardInfo = {};
+        var eKycRequestModel = {};
+        var ekycTxModel = {};
+
+        $().ready(function () {
+            $('#cardpid').hide();
+            $('#cameraframe').hide();
+            $('#footerscore').show();
+            $('#footerresult').show();
+        });
+
+        $('#verifypid').click(function () {
+            if ($(this).text() == "Read card data") {
+                // call smart card api
+                get_smartcard_info();
+
+                $('#cardpid').show();
+                $(this).text('Check card status');
+            } else {
+                // call dopa services
+                check_card_status();
+            }
+        });
+
+        $('#opencamera').click(function () {
+            $('#biometric').CardWidget('toggleMaximize');
+            if ($(this).html() == "Open camera") {
+                $('#cameraframe').hide();
+                $('#footerscore').hide();
+                $('#footerresult').hide();
+
+                get_camera_link();
+
+                $('#iframeCamera').show();
+                $(this).html('Close camera');
+
+            } else {
+                $('#cameraframe').show();
+                $('#footerscore').show();
+                $('#footerresult').show();
+                $(this).html('Open camera');
+
+                get_score_result();
+            }
+            if ($(this).text() == "Open camera") {
+                removeTag('iframeCamera');
+            }
+        });
+
+        function get_smartcard_info() {
+            $.get('http://localhost:8091/api/smartcard', function (result) {
+                smartCardInfo = {
+                    Version: result.Version,
+                    PID: result.PID,
+                    CID: result.CID,
+                    Bp1No: result.Bp1No,
+                    PrefixNameTh: result.PrefixNameTh,
+                    NameTh: result.NameTh,
+                    MiddlenameTh: result.MiddlenameTh,
+                    SurenameTh: result.SurenameTh,
+                    PrefixNameEn: result.PrefixNameEn,
+                    NameEn: result.NameEn,
+                    MiddlenameEn: result.MiddlenameEn,
+                    SurenameEn: result.SurenameEn,
+                    Gender: result.Gender,
+                    DateOfBirth: result.DateOfBirth,
+                    CardTypeCode: result.CardTypeCode,
+                    DateOfIssue: result.DateOfIssue,
+                    DateOfExpiry: result.DateOfExpiry,
+                    LaserNo: result.LaserNo,
+                    Image: result.Image,
+                    Address: result.Address,
+                    ErrorMessage: result.ErrorMessage,
+                    Mode: "3"
+                };
+                $('#IdNo').html(result.PID);
+                $('#PrefixNameTh').html(result.PrefixNameTh);
+                $('#NameTh').html(result.NameTh);
+                $('#MiddlenameTh').html(result.MiddlenameTh);
+                $('#SurenameTh').html(result.SurenameTh);
+                $('#PrefixNameEn').html(result.PrefixNameEn);
+                $('#NameEn').html(result.NameEn);
+                $('#MiddlenameEn').html(result.MiddlenameEn);
+                $('#SurenameEn').html(result.SurenameEn);
+                $('#DateOfBirth').html(result.DateOfBirth);
+
+                var _address = result.Address[0].HouseNo + ' ' + result.Address[0].VillageNo + ' ' + result.Address[0].Building +
+                    ' ' + result.Address[0].Floor + ' ' + result.Address[0].Room + ' ' + result.Address[0].Lane +
+                    ' ' + result.Address[0].Alley + ' ' + result.Address[0].Road + ' ' + result.Address[0].SubDistrict +
+                    ' ' + result.Address[0].District + ' ' + result.Address[0].Province;
+                $('#Address').html(_address);
+
+                imageCard = result.Image;
+                $('#imgoncard').attr('src', 'data:image/png;base64, ' + result.Image);
+            }).fail(function () {
+                alert('read card fail');
+            });
+        }
+
+        function check_card_status() {
+            $.post('@Url.Action("CheckCardStatus","Verify")', smartCardInfo, function (result) {
+                eKycRequestModel = result;
+
+                $('#cardStatusCode').text('Code: ' + eKycRequestModel.dopaResultCode);
+                $('#cardStatusDesc').text(' ' + eKycRequestModel.dopaResultDesc);
+            });
+        }
+
+        function get_camera_link() {
+            $.post('@Url.Action("CameraLink", "Verify")', eKycRequestModel, function (result) {
+                ekycTxModel = result;
+                addIframeTag(ekycTxModel.url);
+            });
+        }
+
+        function addIframeTag(url) {
+            $('#iframeCamera').append("<iframe id=\"eKyciframe\" src=\"" + url + "\" frameborder=\"0\" scrolling=\"no\" style=\"position: absolute; width: 100%; height: 100%; padding: 0 0 0 0; margin: 0 0 0 0;\" allowfullscreen ></iframe>");
+        }
+        function removeTag(tagId) {
+            $('#' + tagId).find('iframe').remove();
+        }
+
+        function get_score_result() {
+            $.post('@Url.Action("FaceMathingResult", "Verify")', ekycTxModel, function (result) {
+                result.finalResult;
+            });
+        }
+    </script>
+}
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">@ViewBag.Title</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                @*<ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">Home</a></li>
+                        <li class="breadcrumb-item active">Starter Page</li>
+                    </ol>*@
+                <div id="display"></div>
+            </div><!-- /.col -->
+        </div><!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content-header -->
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Personal ID -->
+            <div class="col-sm-8">
+                <partial name="_PersonalCard" />
+            </div>
+            <!-- Face biometric -->
+            <div class="col-sm-4">
+                <partial name="_FaceBiomatric" />
+            </div>
+            <!-- CIF Information -->
+            <div class="col-sm-3">
+                <partial name="_CIFInformation" />
+            </div>
+            <!-- AML actimize -->
+            <div class="col-sm-3">
+                <partial name="_AMLActimize" />
+            </div>
+            <!-- FATCA Flag -->
+            <div class="col-sm-3">
+                <partial name="_FatcaFlag" />
+            </div>
+            <!-- Consent -->
+            <div class="col-sm-3">
+                <partial name="_Consent" />
+            </div>
+        </div>
+        <!-- /.row -->
+    </div><!-- /.container-fluid -->
+</div>
+<!-- /.content -->
